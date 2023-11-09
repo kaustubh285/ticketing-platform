@@ -16,7 +16,7 @@ const getTickets = async () => {
 
 export default async function Home() {
   const data: Awaited<ReturnType<typeof getTickets>> = await getTickets();
-  const tickets: TicketData[] = await data.tickets;
+  const tickets: TicketData[] = await data?.tickets;
 
   const uniqueCategories: string[] = Array.from(
     new Set(tickets?.map(({ category }) => category))

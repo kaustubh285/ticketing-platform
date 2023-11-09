@@ -21,6 +21,7 @@ import {
   Textarea,
   Tooltip,
 } from "@chakra-ui/react";
+import getBasePath from "@/lib/getBasePathcomponents";
 
 type Props = {
   ticket?: TicketData;
@@ -78,19 +79,22 @@ function TicketForm({ ticket }: Props) {
     e.preventDefault();
 
     if (EDITMODE) {
-      const response = await fetch(`/api/Tickets/${ticket?._id}`, {
-        method: "PUT",
-        body: JSON.stringify({ formData }),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${getBasePath()}/api/Tickets/${ticket?._id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ formData }),
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("failed to update");
       }
     } else {
-      const response = await fetch("/api/Tickets", {
+      const response = await fetch(`${getBasePath()}//api/Tickets`, {
         method: "POST",
         body: JSON.stringify({ formData }),
         headers: {
